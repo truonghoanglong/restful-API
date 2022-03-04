@@ -15,7 +15,7 @@ const productCtr = {
             ])
                 const products = result[0].status === 'fulfilled' ? result[0].value : [];
                 const count = result[1].status === 'fulfilled' ? result[1].value : 0;
-            console.log(result);
+            // console.log(result);
             return res.status(200).json({products,count})
         }catch(err){
             return res.status(500).json({msg: err.message});
