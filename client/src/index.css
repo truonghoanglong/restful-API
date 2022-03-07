@@ -56,3 +56,6 @@ code {
 
 /* product_card */
 @import url('./css/product_card.css');
+
+/* product_info */
+@import url('./css/product_info.css');

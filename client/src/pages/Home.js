@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import Products from '../components/Products'
+import CallApi from '../ApiConfig/index'
 const Home = (props) => {
   const [products,setProducts] = useState('')
 
@@ -13,6 +14,19 @@ const Home = (props) => {
       console.log(err)
     })
   },[])
+
+  //  useEffect(()=>{
+  //   async function a (req, res)  {
+  //     try{
+  //      const data = await CallApi("api/products", "GET", null)
+       
+  //      setProducts(res.data.products)
+  //      }catch(err){
+  //        console.log(err)
+  //      }
+  //   }
+  //   a()
+  // },[])
   return (
     <>
       <div className="">
