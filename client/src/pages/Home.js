@@ -1,14 +1,12 @@
 import React, { useEffect, useState, useMemo } from 'react'
-import axios from 'axios'
 import Products from '../components/Products'
-import CallApi from '../ApiConfig/index'
 import useQuery from '../hook/useQuery'
 import Pagination from '../components/Pagination'
 import { useLocation } from 'react-router-dom'
 const Home = (props) => {
 
   const [products,setProducts] = useState([])
-  const [limit,setLimit] = useState(1)
+  const [limit,setLimit] = useState(10)
   const [page,setPage] = useState(1)
 
   const {search} = useLocation()

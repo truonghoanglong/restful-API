@@ -10,9 +10,7 @@ const useQuery = (url) => {
 
     useEffect(()=>{
         let here = true;
-
         setLoading(true)
-
         axios.get(url)
         .then(res=>{
             if(!here) return;
@@ -21,8 +19,7 @@ const useQuery = (url) => {
         .catch(error=>{
             if(!here) return;
             setError(error.response.data.msg)
-            toast.error(error.response.data.msg)
-          
+            toast.error(error.response.data.msg)  
         })
         .finally(()=>{
             if(!here) return;
