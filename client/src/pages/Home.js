@@ -8,7 +8,7 @@ import { useLocation } from 'react-router-dom'
 const Home = (props) => {
 
   const [products,setProducts] = useState([])
-  const [limit,setLimit] = useState(5)
+  const [limit,setLimit] = useState(1)
   const [page,setPage] = useState(1)
 
   const {search} = useLocation()

@@ -1,9 +1,23 @@
-import React from 'react'
+import React,{useState,useEffect} from 'react'
 import {Navigation, useNavigate} from 'react-router-dom'
 
 const Pagination = ({totalpage,page}) => {
 
-    const newArr = [...Array(totalpage)].map((_,i)=>i+1)
+    const [firstArr,setFristArr] = useState([])
+    const [lastArr,setLastArr] = useState([])
+
+    useEffect(()=>{
+        const newArr = [...Array(totalpage)].map((_,i)=>i+1)
+        console.log(newArr);
+
+        if(totalpage - page >= 4){
+            setFristArr(newArr.slice(page-1,page +2))
+            setLastArr(newArr.slice(totalpage-1))
+        }
+    },[totalpage,page])
+    console.log({firstArr,lastArr});
+
+    
 
     const navigate = useNavigate()
     
@@ -30,8 +44,17 @@ const Pagination = ({totalpage,page}) => {
         <div className='pagination'>
             <button onClick={pev}>&laquo;</button>
             {
-                newArr && newArr.length > 0 && 
-                newArr.map((num)=>(
+                firstArr && firstArr.length > 0 && 
+                firstArr.map((num)=>(
+                    <button key={num} className={`${isActive(num)}`} onClick={()=>jump(num)}>
+                        {num}
+                    </button>
+                ))
+            }
+            <button>...</button>
+            {
+                lastArr && lastArr.length > 0 && 
+                lastArr.map((num)=>(
                     <button key={num} className={`${isActive(num)}`} onClick={()=>jump(num)}>
                         {num}
                     </button>
