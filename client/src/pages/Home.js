@@ -1,36 +1,44 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useMemo } from 'react'
 import axios from 'axios'
 import Products from '../components/Products'
 import CallApi from '../ApiConfig/index'
+import useQuery from '../hook/useQuery'
+import Pagination from '../components/Pagination'
+import { useLocation } from 'react-router-dom'
 const Home = (props) => {
-  const [products,setProducts] = useState('')
+
+  const [products,setProducts] = useState([])
+  const [limit,setLimit] = useState(5)
+  const [page,setPage] = useState(1)
+
+  const {search} = useLocation()
+
+  const {data,loading,error} = useQuery(`/products?limit=${limit}&page=${page}`)
+
+  
 
   useEffect(()=>{
-    axios.get('api/products')
-    .then(res=>{
-      setProducts(res.data.products)
-    })
-    .catch(err=>{
-      console.log(err)
-    })
-  },[])
+    if(data?.products) setProducts(data?.products)
+  },[data?.products])
 
-  //  useEffect(()=>{
-  //   async function a (req, res)  {
-  //     try{
-  //      const data = await CallApi("api/products", "GET", null)
-       
-  //      setProducts(res.data.products)
-  //      }catch(err){
-  //        console.log(err)
-  //      }
-  //   }
-  //   a()
-  // },[])
+  const totalpage = useMemo(()=>{
+    if(!data?.count) return 0;
+    return Math.ceil(data.count / limit)
+  },[data?.count])
+
+
+  useEffect(()=>{
+    const page = new URLSearchParams(search).get('page') || 1;
+    setPage(Number(page))
+  },[search])
+
   return (
     <>
       <div className="">
         <Products products={products}/>
+        {loading && <h2>Loading...</h2>}
+        {error && <h2>{error}</h2>}
+        <Pagination totalpage={totalpage} page={page} setPage={setPage}/>
       </div>
     </>
   )

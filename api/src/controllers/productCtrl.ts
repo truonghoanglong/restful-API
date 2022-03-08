@@ -6,7 +6,7 @@ import { APIfeatures } from "../lib/features";
 const productCtr = {
     getProducts: async (req,res)=>{
         try{
-            const features = new APIfeatures(Products.find(),req.query).sorting().searching().filtering()
+            const features = new APIfeatures(Products.find(),req.query).paginating().sorting().searching().filtering()
             //const products = await features.query
 
             const result = await Promise.allSettled([
