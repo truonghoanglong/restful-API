@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import ProductCard from './ProductCard'
-const Products = ({products}) => {
-    
+const Products =React.memo(({products}) => {
+  const ref = useRef(0)
   return (
     <div className="products">
+       <h2>Render: {ref.current++}</h2>
         {
             products && products.length > 0 &&
             products.map(product =>(
@@ -12,6 +13,6 @@ const Products = ({products}) => {
         }
     </div>
   )
-}
+})
 
 export default Products

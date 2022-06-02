@@ -1,11 +1,12 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import usePagination from '../hook/usePagination'
 
-const Pagination = ({totalpage,page}) => {
+const Pagination = React.memo(({totalpage,page}) => {
     const {firstArr,lastArr,isActive,pev,next,jump} = usePagination({totalpage,page})
-    
+    const ref = useRef(0)
     return (
         <div className='pagination'>
+             <h2>Render: {ref.current++}</h2>
             <button onClick={pev}>&laquo;</button>
             {
                 firstArr && firstArr.length > 0 && 
@@ -27,6 +28,6 @@ const Pagination = ({totalpage,page}) => {
             <button onClick={next}>&raquo;</button>
         </div>
   )
-}
+})
 
 export default Pagination

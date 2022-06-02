@@ -16,7 +16,6 @@ app.use(express.json())
 app.use(express.urlencoded())
 
 //Database
-
 const URI = process.env.MONGODB_URL
 mongoose.connect(URI,{
     autoIndex: false, 
@@ -25,7 +24,6 @@ mongoose.connect(URI,{
     if(err) throw err;
     console.log('Mongodb connection.')
 })
-
 
 
 
