@@ -62,3 +62,6 @@ code {
 
 /* pagination */
 @import url('./css/pagination.css');
+
+/* sorting */
+@import url('./css/sorting.css');

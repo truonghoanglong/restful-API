@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import Pagination from '../components/Pagination'
 import Products from '../components/Products'
+import Sorting from '../components/Sorting'
 import useQuery from '../hook/useQuery'
 const Home = (props) => {
 
@@ -13,12 +14,16 @@ const Home = (props) => {
 
     const ref = useRef(0)
     
-    const page =useMemo(()=>{
+    const {page,sort} =useMemo(()=>{
         const page = new URLSearchParams(search).get('page') || 1;
-        return Number(page)
+        const sort = new URLSearchParams(search).get('sort') ||" -created";
+        return{
+            page:Number(page),
+            sort:sort
+        }
     },[search])
     
-    const {data,loading,error} = useQuery(`/products?limit=${limit}&page=${page}`)
+    const {data,loading,error} = useQuery(`/products?limit=${limit}&page=${page}&sort=${sort}`)
 
   
 
@@ -36,10 +41,11 @@ const Home = (props) => {
     return (   
         <div className="">
             <h2>Render: {ref.current++}</h2>
+            <Sorting sort={sort}  page={page}/>
             <Products products={products}/>
             {loading && <h2>Loading...</h2>}
             {error && <h2>{error}</h2>}
-            <Pagination totalpage={totalpage} page={page} />
+            <Pagination totalpage={totalpage} page={page}  sort={sort}/>
         </div>
     )
 }
